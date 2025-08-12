@@ -1225,7 +1225,7 @@ For example:
 
 *   `file:///home/user/documents/report.pdf`
 *   `postgres://database/customers/schema`
-*   `screen://localhost/display1`
+*   `screen://127.0.0.1/display1`
 
 The protocol and path structure is defined by the MCP server implementation. Servers can define their own custom URI schemes.
 
@@ -2260,7 +2260,7 @@ Use SSE when:
     });
 
     const transport = new SSEClientTransport(
-      new URL("http://localhost:3000/sse")
+      new URL("http://127.0.0.1:3000/sse")
     );
     await client.connect(transport);
     ```
