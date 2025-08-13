@@ -176,7 +176,39 @@ RETURN = code_events;
 
 ## Configuration
 
-The server connects to the ActivityWatch API at `http://localhost:5600` by default. If your ActivityWatch instance is running on a different host or port, you can modify this in the source code.
+### Environment Variables
+
+You can configure the ActivityWatch server connection using environment variables:
+
+```bash
+# Use default settings (127.0.0.1:5600)
+activitywatch-mcp-server
+
+# Connect to custom host
+ACTIVITYWATCH_HOST=192.168.1.100 activitywatch-mcp-server
+
+# Use custom port
+ACTIVITYWATCH_PORT=8080 activitywatch-mcp-server
+
+# Use both custom host and port
+ACTIVITYWATCH_HOST=activitywatch.local ACTIVITYWATCH_PORT=8080 activitywatch-mcp-server
+
+# Docker environment example
+ACTIVITYWATCH_HOST=activitywatch-container ACTIVITYWATCH_PORT=5600 activitywatch-mcp-server
+```
+
+**Supported Environment Variables:**
+- `ACTIVITYWATCH_HOST` - Server hostname or IP address (default: `127.0.0.1`)
+- `ACTIVITYWATCH_PORT` - Server port number (default: `5600`)
+
+**Validation:**
+- Port must be a valid integer between 1-65535
+- Host must not be empty or whitespace only
+- Invalid values automatically fall back to defaults with error logging
+
+### Legacy Configuration
+
+The server connects to the ActivityWatch API at `http://localhost:5600` by default. Environment variables take precedence over these defaults.
 
 ## Troubleshooting
 

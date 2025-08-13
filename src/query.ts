@@ -1,6 +1,25 @@
 import axios, { AxiosError } from 'axios';
 
-const AW_API_BASE = "http://127.0.0.1:5600/api/0";
+function getValidatedApiBase(): string {
+  const host = process.env.ACTIVITYWATCH_HOST || '127.0.0.1';
+  const port = process.env.ACTIVITYWATCH_PORT || '5600';
+  
+  // Basic validation
+  const portNum = parseInt(port);
+  if (isNaN(portNum) || portNum < 1 || portNum > 65535) {
+    console.error(`Invalid ACTIVITYWATCH_PORT: ${port}, using default 5600`);
+    return 'http://127.0.0.1:5600/api/0';
+  }
+  
+  if (!host.trim()) {
+    console.error(`Invalid ACTIVITYWATCH_HOST: empty, using default 127.0.0.1`);
+    return 'http://127.0.0.1:5600/api/0';
+  }
+  
+  return `http://${host}:${port}/api/0`;
+}
+
+const AW_API_BASE = getValidatedApiBase();
 
 interface QueryResult {
   [key: string]: any;

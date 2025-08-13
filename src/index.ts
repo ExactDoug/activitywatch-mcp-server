@@ -281,11 +281,33 @@ but may need additional configuration.
 });
 
 async function main() {
+  // Use the same validation logic for the banner
+  function getValidatedApiBase(): string {
+    const host = process.env.ACTIVITYWATCH_HOST || '127.0.0.1';
+    const port = process.env.ACTIVITYWATCH_PORT || '5600';
+    
+    // Basic validation
+    const portNum = parseInt(port);
+    if (isNaN(portNum) || portNum < 1 || portNum > 65535) {
+      console.error(`Invalid ACTIVITYWATCH_PORT: ${port}, using default 5600`);
+      return 'http://127.0.0.1:5600/api/0';
+    }
+    
+    if (!host.trim()) {
+      console.error(`Invalid ACTIVITYWATCH_HOST: empty, using default 127.0.0.1`);
+      return 'http://127.0.0.1:5600/api/0';
+    }
+    
+    return `http://${host}:${port}/api/0`;
+  }
+  
+  const apiEndpoint = getValidatedApiBase();
+  
   // Output application banner
   console.error("ActivityWatch MCP Server");
   console.error("=======================");
   console.error("Version: 1.1.0");
-  console.error("API Endpoint: http://127.0.0.1:5600/api/0");
+  console.error(`API Endpoint: ${apiEndpoint}`);
   console.error("Tools: activitywatch_list_buckets, activitywatch_query_examples, activitywatch_run_query, activitywatch_get_events, activitywatch_get_settings");
   console.error("=======================");
   console.error("For help with query format, use the 'activitywatch_query_examples' tool first");
