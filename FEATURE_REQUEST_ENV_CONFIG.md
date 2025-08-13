@@ -70,5 +70,34 @@ ACTIVITYWATCH_HOST=activitywatch.local ACTIVITYWATCH_PORT=8080 activitywatch-mcp
 ---
 
 **Created:** 2025-08-12  
-**Status:** Open  
-**Assignee:** TBD
+**Status:** ✅ COMPLETED  
+**Completed:** 2025-08-12  
+**Implementation Commit:** dbb12b5  
+**Assignee:** ExactDoug
+
+## Implementation Summary
+
+This feature request has been successfully implemented with the following accomplishments:
+
+- ✅ `ACTIVITYWATCH_HOST` environment variable support
+- ✅ `ACTIVITYWATCH_PORT` environment variable support  
+- ✅ Backward compatibility maintained (defaults to 127.0.0.1:5600)
+- ✅ Input validation for host and port values with error logging
+- ✅ Documentation updated in README.md with configuration examples
+- ✅ All existing tests continue to pass (zero test modifications required)
+- ✅ Build process validated with TypeScript compilation to JavaScript
+
+**Usage Examples Now Active:**
+```bash
+# Use default settings (127.0.0.1:5600)
+activitywatch-mcp-server
+
+# Use custom host
+ACTIVITYWATCH_HOST=192.168.1.100 activitywatch-mcp-server
+
+# Use custom port
+ACTIVITYWATCH_PORT=8080 activitywatch-mcp-server
+
+# Use both custom host and port
+ACTIVITYWATCH_HOST=activitywatch.local ACTIVITYWATCH_PORT=8080 activitywatch-mcp-server
+```
